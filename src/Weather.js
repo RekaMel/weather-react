@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import FormattedDate from "./FormattedDate";
+import WeatherInfo from "./WeatherInfo";
+
 import "./Weather.css";
 import axios from "axios";
 import { Circles } from "react-loader-spinner";
@@ -7,17 +9,35 @@ import { Circles } from "react-loader-spinner";
 export default function Weather(props) {
   const [ready, setReady] = useState(false);
   const [weatherData, setWeatherData] = useState({});
+  const [city, setCity] = useState(props.defaultCity);
   function handleResponse(response) {
     setWeatherData({
       temperature: response.data.main.temp,
       humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
       city: response.data.name,
-      iconUrl: "https://ssl.gstatic.com/onebox/weather/64/sunny.png",
+      iconUrl: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       description: response.data.weather[0].description,
       date: new Date(response.data.dt * 1000),
     });
     setReady(true);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
+
+  function search() {
+    let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+
+    let units = "metric";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+    axios.get(apiUrl).then(handleResponse);
   }
 
   if (ready) {
@@ -25,7 +45,7 @@ export default function Weather(props) {
       <div className="Weather">
         <div class="weather-app-wrapper">
           <div class="weather-app">
-            <form class="search-form" id="city-form">
+            <form class="search-form" id="city-form" onSubmit={handleSubmit}>
               <div class="row">
                 <div class="col-8">
                   <input
@@ -34,6 +54,7 @@ export default function Weather(props) {
                     class="form-control"
                     id="inputCity"
                     autocomplete="off"
+                    onChange={handleCityChange}
                   />
                 </div>
                 <div class="col-2">
@@ -49,52 +70,8 @@ export default function Weather(props) {
                 </div>
               </div>
             </form>
+            <WeatherInfo data={weatherData} />
 
-            <div class="row city">
-              <div class="col-7">
-                <h1 class="city-name" id="city">
-                  {weatherData.city}
-                </h1>
-                <p id="dayTime">
-                  <FormattedDate date={weatherData.date} />
-                </p>
-              </div>
-              <div class="col-5">
-                <img
-                  src={weatherData.iconUrl}
-                  alt={weatherData.description}
-                  class="icon"
-                  id="icon"
-                />
-
-                <span class="temperature" id="temp">
-                  {Math.round(weatherData.temperature)}
-                </span>
-                <span class="units">
-                  <a href="#" id="celsius" class="active">
-                    °C
-                  </a>
-                  <a href="#" id="fahrenheit">
-                    {" "}
-                    °F
-                  </a>
-                </span>
-              </div>
-            </div>
-            <div class="row weather-details">
-              <div class="col-4">
-                <i class="fa-solid fa-droplet"></i>
-                <i class="fa-solid fa-percent"></i>{" "}
-                <span id="hum">{weatherData.humidity}</span>%
-              </div>
-              <div class="col-4 description" id="type">
-                {weatherData.description}
-              </div>
-              <div class="col-4">
-                <i class="fa-solid fa-wind"></i>{" "}
-                <span id="speed">{weatherData.wind}</span> km/h
-              </div>
-            </div>
             <div class="weather-forecast" id="forecast"></div>
           </div>
           <small class="source-code">
@@ -114,12 +91,7 @@ export default function Weather(props) {
       </div>
     );
   } else {
-    let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
-    let city = "New York";
-    let units = "metric";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=${units}`;
-    axios.get(apiUrl).then(handleResponse);
-
+    search();
     return "Loading...";
   }
 }
