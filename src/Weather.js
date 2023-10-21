@@ -45,7 +45,9 @@ export default function Weather(props) {
 
           <div class="row city">
             <div class="col-7">
-              <h1 class="city-name" id="city"></h1>
+              <h1 class="city-name" id="city">
+                Vienna
+              </h1>
               <p id="dayTime">Wed 10:39am</p>
             </div>
             <div class="col-5">
@@ -83,10 +85,14 @@ export default function Weather(props) {
           <div class="weather-forecast" id="forecast"></div>
         </div>
         <small class="source-code">
-          <a href="https://github.com/RekaMel/WeatherApp" target="_blank">
-            Open-source code
+          This project was coded by{" "}
+          <a href="https://funny-clafoutis-782363.netlify.app/" target="_blank">
+            Reka Acs
+          </a>{" "}
+          and is {""}
+          <a href="https://github.com/RekaMel/weather-react" target="_blank">
+            open sourced on GitHub.
           </a>
-          by Reka Acs
         </small>
       </div>
     </div>
