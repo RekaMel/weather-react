@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FormattedDate from "./FormattedDate";
 import "./Weather.css";
 import axios from "axios";
 import { Circles } from "react-loader-spinner";
@@ -14,7 +15,7 @@ export default function Weather(props) {
       city: response.data.name,
       iconUrl: "https://ssl.gstatic.com/onebox/weather/64/sunny.png",
       description: response.data.weather[0].description,
-      date: "Wed 10:39am",
+      date: new Date(response.data.dt * 1000),
     });
     setReady(true);
   }
@@ -54,7 +55,9 @@ export default function Weather(props) {
                 <h1 class="city-name" id="city">
                   {weatherData.city}
                 </h1>
-                <p id="dayTime">{weatherData.date}</p>
+                <p id="dayTime">
+                  <FormattedDate date={weatherData.date} />
+                </p>
               </div>
               <div class="col-5">
                 <img
