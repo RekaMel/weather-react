@@ -8,20 +8,7 @@ function App() {
       <div className="container">
         <header className="App-header">
           <h1>Weather App</h1>
-          <Weather city="Paris" />
-          <footer>
-            This project was coded by{" "}
-            <a
-              href="https://funny-clafoutis-782363.netlify.app/"
-              target="_blank"
-            >
-              Reka Acs
-            </a>{" "}
-            and is {""}
-            <a href="https://github.com/RekaMel/weather-react" target="_blank">
-              open sourced on GitHub.
-            </a>
-          </footer>
+          <Weather defaultCity="New York" />
         </header>
       </div>
     </div>
