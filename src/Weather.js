@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import FormattedDate from "./FormattedDate";
 import WeatherInfo from "./WeatherInfo";
 import WeatherForecast from "./WeatherForecast";
-
 import "./Weather.css";
 import axios from "axios";
-import { Circles } from "react-loader-spinner";
 
 export default function Weather(props) {
   const [ready, setReady] = useState(false);
@@ -14,6 +11,7 @@ export default function Weather(props) {
   function handleResponse(response) {
     setWeatherData({
       temperature: response.data.main.temp,
+      coordinates: response.data.coord,
       humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
       city: response.data.name,
@@ -75,7 +73,7 @@ export default function Weather(props) {
               </div>
             </form>
             <WeatherInfo data={weatherData} />
-            <WeatherForecast />
+            <WeatherForecast coordinates={weatherData.coordinates} />
           </div>
           <small className="source-code">
             This project was coded by{" "}
