@@ -82,11 +82,16 @@ export default function Weather(props) {
             <a
               href="https://funny-clafoutis-782363.netlify.app/"
               target="_blank"
+              rel="noreferrer"
             >
               Reka Acs
             </a>{" "}
             and is {""}
-            <a href="https://github.com/RekaMel/weather-react" target="_blank">
+            <a
+              href="https://github.com/RekaMel/weather-react"
+              target="_blank"
+              rel="noreferrer"
+            >
               open sourced on GitHub.
             </a>
           </small>
