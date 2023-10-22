@@ -1,52 +1,37 @@
 import React from "react";
 import FormattedDate from "./FormattedDate";
+import WeatherIcon from "./WeatherIcon";
+import WeatherTemperature from "./WeatherTemperature";
 
 export default function WeatherInfo(props) {
   return (
     <div className="WeatherInfo">
-      <div class="row city">
-        <div class="col-7">
-          <h1 class="city-name" id="city">
+      <div className="row city">
+        <div className="col-7">
+          <h1 className="city-name" id="city">
             {props.data.city}
           </h1>
-          <p id="dayTime">
+          <p>
             <FormattedDate date={props.data.date} />
           </p>
         </div>
-        <div class="col-5">
-          <img
-            src={props.data.iconUrl}
-            alt={props.data.description}
-            class="icon"
-            id="icon"
-          />
-
-          <span class="temperature" id="temp">
-            {Math.round(props.data.temperature)}
-          </span>
-          <span class="units">
-            <a href="#" id="celsius" class="active">
-              °C
-            </a>
-            <a href="#" id="fahrenheit">
-              {" "}
-              °F
-            </a>
-          </span>
+        <div className="col-2">
+          <WeatherIcon code={props.data.icon} size={52} className="icon" />
+        </div>
+        <div className="col-3">
+          <WeatherTemperature celsius={props.data.temperature} />
         </div>
       </div>
-      <div class="row weather-details">
-        <div class="col-4">
-          <i class="fa-solid fa-droplet"></i>
-          <i class="fa-solid fa-percent"></i>{" "}
-          <span id="hum">{props.data.humidity}</span>%
+      <div className="row weather-details">
+        <div className="col-4">
+          <i className="fa-solid fa-droplet"></i>
+          <i className="fa-solid fa-percent"></i>{" "}
+          <span>{props.data.humidity}</span>%
         </div>
-        <div class="col-4 description" id="type">
-          {props.data.description}
-        </div>
-        <div class="col-4">
-          <i class="fa-solid fa-wind"></i>{" "}
-          <span id="speed">{props.data.wind}</span> km/h
+        <div className="col-4 description">{props.data.description}</div>
+        <div className="col-4">
+          <i className="fa-solid fa-wind"></i> <span>{props.data.wind}</span>{" "}
+          km/h
         </div>
       </div>
     </div>

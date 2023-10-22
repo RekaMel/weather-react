@@ -16,7 +16,7 @@ export default function Weather(props) {
       humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
       city: response.data.name,
-      iconUrl: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+      icon: response.data.weather[0].icon,
       description: response.data.weather[0].description,
       date: new Date(response.data.dt * 1000),
     });
@@ -43,26 +43,29 @@ export default function Weather(props) {
   if (ready) {
     return (
       <div className="Weather">
-        <div class="weather-app-wrapper">
-          <div class="weather-app">
-            <form class="search-form" id="city-form" onSubmit={handleSubmit}>
-              <div class="row">
-                <div class="col-8">
+        <div className="weather-app-wrapper">
+          <div className="weather-app">
+            <form className="search-form" onSubmit={handleSubmit}>
+              <div className="row">
+                <div className="col-8">
                   <input
                     type="search"
                     placeholder="Search location..."
                     class="form-control"
-                    id="inputCity"
                     autocomplete="off"
                     onChange={handleCityChange}
                   />
                 </div>
-                <div class="col-2">
-                  <input type="submit" value="Search" class="btn btn-primary" />
+                <div className="col-2">
+                  <input
+                    type="submit"
+                    value="Search"
+                    className="btn btn-primary"
+                  />
                 </div>
-                <div class="col-2">
+                <div className="col-2">
                   <button
-                    class="btn btn-success current"
+                    className="btn btn-success current"
                     id="current-location-btn"
                   >
                     Current
@@ -72,9 +75,9 @@ export default function Weather(props) {
             </form>
             <WeatherInfo data={weatherData} />
 
-            <div class="weather-forecast" id="forecast"></div>
+            <div className="weather-forecast"></div>
           </div>
-          <small class="source-code">
+          <small className="source-code">
             This project was coded by{" "}
             <a
               href="https://funny-clafoutis-782363.netlify.app/"
